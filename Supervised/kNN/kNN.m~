@@ -33,6 +33,8 @@ labelsOut = Lt(neighbours(1:k,:));
 
 if k~=1
     labelsOut = mode(labelsOut, 1);
+    labels
+else
     labelsOut = labelsOut';
 end
 

@@ -51,8 +51,8 @@ numFeatures = size(Xtraining,1);
 numClasses = length(unique(Lt{1}));
 
 
-W0 = rand(numClasses,numHidden); % Change this, Initiate your weight matrix W
-V0 = rand(numHidden,numFeatures); % Change this, Initiate your weight matrix V
+V0 = rand(numClasses,numHidden); % Change this, Initiate your weight matrix W
+W0 = rand(numHidden,numFeatures); % Change this, Initiate your weight matrix V
 
 %
 [W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate );

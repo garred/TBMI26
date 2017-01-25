@@ -10,8 +10,8 @@ function [ Y, L ] = runMultiLayer( X, W, V )
 %               L = The resulting label of each feature, (vector) 
 
 % Calculate net output
-Y1 = tanh(V*X);
-Y = tanh(W*Y1);
+Y1 = tanh(W*X);
+Y = tanh(V*[ones(1,size(Y1,2)); Y1]);
 
 
 % Calculate classified labels (Hint, use the max() function)

@@ -9,7 +9,7 @@ classes = unique(Ltrue);
 numClasses = length(classes);
 cM = zeros(numClasses); % square matrix (numClases x numClases)
 
-cM = confusionmat(Lclass, Ltrue); % can we use this?
+cM(Lclass,Lclass) = 
 
 end
 

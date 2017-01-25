@@ -9,7 +9,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 4; % Change this to load new data 
+dataSetNr = 1; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -25,11 +25,21 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 % XBin1 = Xt{1};
 %% Modify the X Matrices so that a bias is added
 
+Xtraining = Xt{1};
+Xtest = Xt{2};
+
+numTraining = size(Xtraining);
+numTraining = numTraining(2);
+
+numTest = size(Xtest);
+numTest = numTest(2);
+
 % The Training Data
-Xtraining = [];
+Xtraining = [ones(1,numTraining); Xtraining];
+
 
 % The Test Data
-Xtest = [];
+Xtest = [ones(1,numTest); Xtest];
 
 
 %% Train your single layer network
@@ -38,7 +48,11 @@ Xtest = [];
 numIterations = 400; % Change this, Numner of iterations (Epochs)
 learningRate = 0.00005; % Change this, Your learningrate
 
-W0 = 0; % Change this, Initiate your weight matrix W
+n = size(Xtraining,1);
+k = length(unique(Lt{1}));
+
+W0 = rand(k,n); % Change this, Initiate your weight matrix W. W is kxn where k = number of outputs and
+                % n is the number of features + 1
 
 [W, trainingError, testError ] = trainSingleLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,numIterations, learningRate );
 
@@ -70,7 +84,7 @@ acc = calcAccuracy(cM)
 % Note: You do not need to change this code.
 
 if dataSetNr < 4
-    plotResultSingleLayer(W,Xtraining,Lt{1},LSingleLayerTraining,Xtest,Lt{2},LSingleLayerTest)
+    plotResultSingleLayer(W,Xtraining,Lt{1}',LSingleLayerTraining,Xtest,Lt{2}',LSingleLayerTest)
 else
     plotResultsOCR( Xtest, Lt{2}, LSingleLayerTest)
 end

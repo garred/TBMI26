@@ -16,8 +16,8 @@ function [Wout, trainingError, testError ] = trainSingleLayer(Xt,Dt,Xtest,Dtest,
 % Initiate variables
 trainingError = nan(numIterations+1,1);
 testError = nan(numIterations+1,1);
-Nt = size(Xt,2);
-Ntest = size(Xtest,2);
+Nt = size(Xt,2); % number of training data
+Ntest = size(Xtest,2); % number of test data
 Wout = W0;
 
 % Calculate initial error

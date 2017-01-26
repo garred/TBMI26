@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 4; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -26,33 +26,26 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 Xtraining = Xt{1};
 Xtest = Xt{2};
 
-numTraining = size(Xtraining);
-numTraining = numTraining(2);
+numTraining = size(Xtraining, 2);
+numTest = size(Xtest, 2);
 
-numTest = size(Xtest);
-numTest = numTest(2);
-
-% The Training Data
 Xtraining = [ones(1,numTraining); Xtraining];
-
-
-% The Test Data
 Xtest = [ones(1,numTest); Xtest];
 
 
 %% Train your single layer network
 % Note: You nned to modify trainMultiLayer() in order to train the network
 
-numHidden = 100; % Change this, Number of hidde neurons 
-numIterations = 40000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.005; % Change this, Your learningrate
+numHidden = 200; % Change this, Number of hidde neurons 
+numIterations = 1000; % Change this, Numner of iterations (Epochs)
+learningRate = 0.00001; % Change this, Your learningrate
 
 numFeatures = size(Xtraining,1);
 numClasses = length(unique(Lt{1}));
 
 
-V0 = rand(numClasses,numHidden+1); % Change this, Initiate your weight matrix W
-W0 = rand(numHidden,numFeatures); % Change this, Initiate your weight matrix V
+V0 = randn(numClasses,numHidden+1)*0.01; % Change this, Initiate your weight matrix W
+W0 = randn(numHidden,numFeatures)*0.01; % Change this, Initiate your weight matrix V
 
 %
 [W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate );
@@ -79,13 +72,13 @@ legend('Training Error','Test Error','Min Test Error')
 cM = calcConfusionMatrix( LMultiLayerTest, Lt{2})
 
 % The accuracy
-acc = calcAccuracy();
+acc = calcAccuracy(cM);
 
 %% Plot classifications
 % Note: You do not need to change this code.
 
 if dataSetNr < 4
-    plotResultMultiLayer(W,V,Xtraining,Lt{1},LMultiLayerTraining,Xtest,Lt{2},LMultiLayerTest)
+    plotResultMultiLayer(W,V,Xtraining,Lt{1}',LMultiLayerTraining,Xtest,Lt{2}',LMultiLayerTest)
 else
     plotResultsOCR( Xtest, Lt{2}, LMultiLayerTest )
 end

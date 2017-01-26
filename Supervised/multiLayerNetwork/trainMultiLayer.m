@@ -16,44 +16,44 @@ function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtra
 %               testError - The test error for each iteration
 %                               (vector)
 
-% Initiate variables
-trainingError = nan(numIterations+1,1);
-testError = nan(numIterations+1,1);
-numTraining = size(Xtraining,2);
-numTest = size(Xtest,2);
-numClasses = size(Dtraining,1) - 1;
+X = Xtraining;
+D = Dtraining;
+
 Wout = W0;
 Vout = V0;
 
-% Calculate initial error
-Z = runMultiLayer(Xtraining, W0, V0);
-Ytest = runMultiLayer(Xtest, W0, V0);
-trainingError(1) = sum(sum((Z - Dtraining).^2))/(numTraining*numClasses);
-testError(1) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
+trainingError = [];
+testError = [];
 
-N = size(Xtraining,2); % num of samples
-Y = Dtraining;
+classes = size(Dtraining, 1);
+samplesTrain = size(Xtraining, 2);
+samplesTest = size(Xtraining, 2);
 
-for n = 1:numIterations
-Z = runMultiLayer(Xtraining, Wout, Vout);
+for iteration = 1:numIterations
+    
+    % Calculate the forward activation
+    z1 = Wout * X;
+    z1 = [ones(1, size(z1,2)); z1];
+    a1 = tanh(z1);
+    z2 = Vout * a1;
+    a2 = tanh(z2);
 
-numerator =  Vout'*(Z-Y);
-Vout*Xtraining
-tanprim = tanhprim(Vout*Xtraining));
-numerator.*tanprim;
-
-%grad_v = (2/N)*((Vout'*(Z - Y)).*tanhprim(Vout*tanh(Wout*Xtest)))*Xtest'; %Calculate the gradient for the output layer
-grad_w = (2/N)*((Z-Y)*(V*X)); %..and for the hidden layer.
-
-
-Wout = Wout; %Take the learning step.
-Vout = Vout; %Take the learning step.
-
-Z = runMultiLayer(Xtraining, Wout, Vout);
-Ytest = runMultiLayer(Xtest, Wout, Vout);
-
-trainingError(1+n) = sum(sum((Z - Y).^2))/(numTraining*numClasses);
-testError(1+n) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
+    % Propagate the backward errors
+    e2 = (a2 - D) .* tanhprim(z2);
+    e1 = (Vout'*e2) .* tanhprim(z1);
+    
+    % Calculate the weights updates and update
+    dW = e1(2:end,:) * X';
+    dV = e2 * a1';
+    
+    Wout = Wout - learningRate * dW;
+    Vout = Vout - learningRate * dV;
+    
+    % Store the training and test errors
+    trainingError = [trainingError sum(sum((a2-D).^2))/(classes*samplesTrain)];
+    a2 = runMultiLayer(Xtest, Wout, Vout);
+    testError = [testError sum(sum((a2-Dtest).^2))/(classes*samplesTest)];
+    
 end
 
 end

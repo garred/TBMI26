@@ -7,9 +7,11 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 1; % Change this to load new data 
+dataSetNr = 4; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
+
+%plotCase(X,D)
 
 %% Select a subset of the training features
 
@@ -79,13 +81,13 @@ legend('Training Error','Test Error','Min Test Error')
 cM = calcConfusionMatrix( LMultiLayerTest, Lt{2})
 
 % The accuracy
-acc = calcAccuracy();
+acc = calcAccuracy(cM)
 
 %% Plot classifications
 % Note: You do not need to change this code.
 
 if dataSetNr < 4
-    plotResultMultiLayer(W,V,Xtraining,Lt{1},LMultiLayerTraining,Xtest,Lt{2},LMultiLayerTest)
+    plotResultMultiLayer(W,V,Xtraining,Lt{1}',LMultiLayerTraining,Xtest,Lt{2}',LMultiLayerTest)
 else
     plotResultsOCR( Xtest, Lt{2}, LMultiLayerTest )
 end

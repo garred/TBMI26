@@ -38,11 +38,15 @@ for n = 1:numIterations
 Z = runMultiLayer(Xtraining, Wout, Vout);
 
 numerator =  Vout'*(Z-Y);
-tanprim = tanhprim(Wout*Vout*Xtest');
-numerator.*tanprim;
+tanprim = tanhprim([ones(1,size(Wout*Xtraining,2));tanh(Wout*Xtraining)]);
+numerator = numerator.*tanprim;
 
-grad_v = (2/N)*((Vout'*(Z - Y)).*tanhprim(Vout*tanh(Wout*Xtest)))*Xtest'; %Calculate the gradient for the output layer
-grad_w = (2/N)*((Z-Y)*(V*X)); %..and for the hidden layer.
+Xtransp = Xtraining(2:end,:)';
+
+grad_w = (2/N)*(numerator*Xtransp)';
+%grad_v = (2/N)*((Vout'*(Z - Y)).*tanhprim(Vout*tanh(Wout*Xtest)))*Xtest'; %Calculate the gradient for the output layer
+
+grad_v = (2/N)*((Z-Y)*(tanh(Wout*Xtraining))'); %..and for the hidden layer.
 
 
 Wout = Wout; %Take the learning step.

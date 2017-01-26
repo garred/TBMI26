@@ -11,14 +11,12 @@ function [ Y, L ] = runMultiLayer( X, W, V )
 
 % Calculate net output
 Y1 = tanh(W*X);
-Y1 = [ones(1,size(Y1,2)); Y1];
-Y = tanh(V*Y1);% should we use tanh here?
+Y1 = [ones(1,size(Y1,2); Y];
+Y = tanh(V*[ones(1,size(Y1,2)); Y1]);
 
 
 % Calculate classified labels (Hint, use the max() function)
 
 [maxim,L] = max(Y);
-
-
 end
 

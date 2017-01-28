@@ -36,8 +36,8 @@ Xtest = [ones(1,numTest); Xtest];
 %% Train your single layer network
 % Note: You nned to modify trainMultiLayer() in order to train the network
 
-numHidden = 200; % Change this, Number of hidde neurons 
-numIterations = 1000; % Change this, Numner of iterations (Epochs)
+numHidden = 50; % Change this, Number of hidde neurons 
+numIterations = 10000; % Change this, Numner of iterations (Epochs)
 learningRate = 0.00001; % Change this, Your learningrate
 
 numFeatures = size(Xtraining,1);
@@ -72,7 +72,7 @@ legend('Training Error','Test Error','Min Test Error')
 cM = calcConfusionMatrix( LMultiLayerTest, Lt{2})
 
 % The accuracy
-acc = calcAccuracy(cM);
+acc = calcAccuracy(cM)
 
 %% Plot classifications
 % Note: You do not need to change this code.

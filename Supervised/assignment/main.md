@@ -9,6 +9,8 @@ You can compile this file by using `pandoc main.md -o main.pdf`.
 
 To perform this assignment, 4 different sets of data are given. The first 3 consists of 2-dimensional features (the first and the second have 2 classes and the third have 3), the 4th is composed with OCR digits that have 64 features and 10 different classes (from 0 to 9).
 
+$a^2=\sqrt{b^2+c^2}$
+
 ## Set data 1
 
 ## Set data 2

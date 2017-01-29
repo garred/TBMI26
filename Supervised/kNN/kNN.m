@@ -17,6 +17,7 @@ ntrain = ntrain(2);
 dist = zeros(ntrain,2);
 
 neighbours = zeros(ntrain, ndata);
+distances = zeros(ntrain, ndata);
 indices = 1:ntrain;
 
 for i = 1:ndata
@@ -26,13 +27,14 @@ for i = 1:ndata
     
     dist = sortrows(dist);    
     neighbours(:, i) = dist(:, 2);
+    distances(:, i) = dist(:, 1);
 end
-
 
 labelsOut = Lt(neighbours(1:k,:));
 
 if k~=1
-    labelsOut = mode(labelsOut, 1);
+    %labelsOut = mode(labelsOut, 1);
+    labelsOut = winner(labelsOut, distances(1:k,:) );
     labelsOut = labelsOut';
 end
 

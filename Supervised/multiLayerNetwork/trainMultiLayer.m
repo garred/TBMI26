@@ -1,4 +1,4 @@
-function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtraining,Xtest,Dtest, W0, V0,numIterations, learningRate )
+function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtraining,Xtest,Dtest, W0, V0,numIterations, learningRate, momentum )
 %TRAINMULTILAYER Trains the network (Learning)
 %   Inputs:
 %               X* - Trainin/test features (matrix)
@@ -29,7 +29,24 @@ classes = size(Dtraining, 1);
 samplesTrain = size(Xtraining, 2);
 samplesTest = size(Xtraining, 2);
 
+old_dW = zeros(size(Wout));
+old_dV = zeros(size(Vout));
+
+time_init = clock;
+
 for iteration = 1:numIterations
+    
+    % Estimate the remaining training time and print it
+    if mod(iteration,100)==0
+        r = (clock-time_init)*((numIterations-iteration)/(iteration+1));
+        r(2) = r(1)*12 + r(2);
+        r(3) = r(2)*30 + r(3);
+        r(4) = r(3)*24 + r(4);
+        r(5) = r(4)*60 + r(5);
+        r = r(5)*60 + r(6);
+        disp(iteration)
+        disp(r)
+    end
     
     % Calculate the forward activation
     z1 = Wout * X;
@@ -43,11 +60,15 @@ for iteration = 1:numIterations
     e1 = (Vout'*e2) .* tanhprim(z1);
     
     % Calculate the weights updates and update
-    dW = e1(2:end,:) * X';
-    dV = e2 * a1';
+    dW = learningRate * e1(2:end,:) * X';
+    dV = learningRate * e2 * a1';
     
-    Wout = Wout - learningRate * dW;
-    Vout = Vout - learningRate * dV;
+    Wout = Wout - dW - momentum*old_dW;
+    Vout = Vout - dV - momentum*old_dV;
+    
+    % Stores the last 
+    old_dW = dW;
+    old_dV = dV;
     
     % Store the training and test errors
     trainingError = [trainingError sum(sum((a2-D).^2))/(classes*samplesTrain)];

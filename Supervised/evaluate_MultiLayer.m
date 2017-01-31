@@ -36,9 +36,10 @@ Xtest = [ones(1,numTest); Xtest];
 %% Train your single layer network
 % Note: You nned to modify trainMultiLayer() in order to train the network
 
-numHidden = 50; % Change this, Number of hidde neurons 
+numHidden = 400; % Change this, Number of hidde neurons 
 numIterations = 10000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.00001; % Change this, Your learningrate
+learningRate = 1e-5; %0.00001; % Change this, Your learningrate
+momentum = 0.99;
 
 numFeatures = size(Xtraining,1);
 numClasses = length(unique(Lt{1}));
@@ -48,7 +49,7 @@ V0 = randn(numClasses,numHidden+1)*0.01; % Change this, Initiate your weight mat
 W0 = randn(numHidden,numFeatures)*0.01; % Change this, Initiate your weight matrix V
 
 %
-[W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate );
+[W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate, momentum );
 
 % Plot errors
 figure(1101)
@@ -61,6 +62,7 @@ plot(mErrInd,mErr,'bo','linewidth',1.5)
 hold off
 title('Training and Test Errors, Single Layer')
 legend('Training Error','Test Error','Min Test Error')
+axis([0,numIterations, 0,1]);
 
 %% Calculate The Confusion Matrix and the Accuracy of the Evaluation Data
 % Note: you have to modify the calcConfusionMatrix() function yourselfs.

@@ -45,9 +45,9 @@ Xtest = [ones(1,numTest); Xtest];
 %% Train your single layer network
 % Note: You nned to modify trainMultiLayer() in order to train the network
 
-numHidden = 100; % Change this, Number of hidde neurons 
-numIterations = 40000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.005; % Change this, Your learningrate
+numHidden = 64; % Change this, Number of hidde neurons 
+numIterations = 10000; % Change this, Numner of iterations (Epochs)
+learningRate = 0.0005; % Change this, Your learningrate
 
 numFeatures = size(Xtraining,1);
 numClasses = length(unique(Lt{1}));

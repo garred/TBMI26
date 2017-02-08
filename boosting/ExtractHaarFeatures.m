@@ -32,7 +32,11 @@ x = zeros(nbrHaarFeatures,nbrTrainingExamples);
 
 % Extract features (using some Matlab magic to avoid one for-loop)
 for k = 1:nbrHaarFeatures
-    x(k,:) = permute(sum(sum(bsxfun(@times,images,haarFeatureMasks(:,:,k)),1),2),[1 3 2]);
+     a = bsxfun(@times,images,haarFeatureMasks(:,:,k));
+     b = sum(a,1);
+     c = sum(b,2);
+     x(k,:) = permute(c,[1 3 2]);
+%    x(k,:) = permute(sum(sum(bsxfun(@times,images,haarFeatureMasks(:,:,k)),1),2),[1 3 2]);
 end
 
 

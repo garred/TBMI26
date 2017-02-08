@@ -1,4 +1,4 @@
-function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtraining,Xtest,Dtest, W0, V0,numIterations, learningRate )
+function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtraining,Xtest,Dtest, W0, V0,numIterations, learningRate, momentum )
 %TRAINMULTILAYER Trains the network (Learning)
 %   Inputs:
 %               X* - Trainin/test features (matrix)
@@ -16,51 +16,65 @@ function [Wout,Vout, trainingError, testError ] = trainMultiLayer(Xtraining,Dtra
 %               testError - The test error for each iteration
 %                               (vector)
 
-% Initiate variables
-trainingError = nan(numIterations+1,1);
-testError = nan(numIterations+1,1);
-numTraining = size(Xtraining,2);
-numTest = size(Xtest,2);
-numClasses = size(Dtraining,1) - 1;
+X = Xtraining;
+D = Dtraining;
+
 Wout = W0;
 Vout = V0;
 
-% Calculate initial error
-Z = runMultiLayer(Xtraining, W0, V0);
-Ytest = runMultiLayer(Xtest, W0, V0);
-trainingError(1) = sum(sum((Z - Dtraining).^2))/(numTraining*numClasses);
-testError(1) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
+trainingError = [];
+testError = [];
 
-N = size(Xtraining,2); % num of samples
-Y = Dtraining;
+classes = size(Dtraining, 1);
+samplesTrain = size(Xtraining, 2);
+samplesTest = size(Xtraining, 2);
 
-for n = 1:numIterations
-    Z = runMultiLayer(Xtraining, Wout, Vout);
+old_dW = zeros(size(Wout));
+old_dV = zeros(size(Vout));
 
-    H = Wout*Xtraining;
-    H = [ones(1,size(H,2)); H];
+time_init = clock;
 
-    grad_v = (2/N)*((Z-Y)*(tanh(H))'); % Calculate the gradient for the output layer
+for iteration = 1:numIterations
+    
+    % Estimate the remaining training time and print it
+    if mod(iteration,100)==0
+        r = (clock-time_init)*((numIterations-iteration)/(iteration+1));
+        r(2) = r(1)*12 + r(2);
+        r(3) = r(2)*30 + r(3);
+        r(4) = r(3)*24 + r(4);
+        r(5) = r(4)*60 + r(5);
+        r = r(5)*60 + r(6);
+        disp(iteration)
+        disp(r)
+    end
+    
+    % Calculate the forward activation
+    z1 = Wout * X;
+    z1 = [ones(1, size(z1,2)); z1];
+    a1 = tanh(z1);
+    z2 = Vout * a1;
+    a2 = tanh(z2);
 
-    numerator =  Vout'*(Z-Y);
-    numerator = numerator(2:end,:);
-    H = Wout*Xtraining;
-    S = tanh(H);
-    tanprim = tanhprim(S);
-    numerator = numerator.*tanprim;
-
-    grad_w = (2/N)*(numerator*Xtraining'); %..and for the hidden layer.
-
-    %grad_v = (2/N)*((Vout'*(Z - Y)).*tanhprim(Vout*tanh(Wout*Xtest)))*Xtest'; 
-
-    Wout = Wout - learningRate*grad_w; %Take the learning step.
-    Vout = Vout - learningRate*grad_v; %Take the learning step.
-
-    Z = runMultiLayer(Xtraining, Wout, Vout);
-    Ytest = runMultiLayer(Xtest, Wout, Vout);
-
-    trainingError(1+n) = sum(sum((Z - Y).^2))/(numTraining*numClasses);
-    testError(1+n) = sum(sum((Ytest - Dtest).^2))/(numTest*numClasses);
+    % Propagate the backward errors
+    e2 = (a2 - D) .* tanhprim(z2);
+    e1 = (Vout'*e2) .* tanhprim(z1);
+    
+    % Calculate the weights updates and update
+    dW = learningRate * e1(2:end,:) * X';
+    dV = learningRate * e2 * a1';
+    
+    Wout = Wout - dW - momentum*old_dW;
+    Vout = Vout - dV - momentum*old_dV;
+    
+    % Stores the last 
+    old_dW = dW;
+    old_dV = dV;
+    
+    % Store the training and test errors
+    trainingError = [trainingError sum(sum((a2-D).^2))/(classes*samplesTrain)];
+    a2 = runMultiLayer(Xtest, Wout, Vout);
+    testError = [testError sum(sum((a2-Dtest).^2))/(classes*samplesTest)];
+    
 end
 
 end

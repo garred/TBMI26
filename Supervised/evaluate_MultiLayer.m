@@ -7,7 +7,7 @@
 % 3 = dot cloud 3
 % 4 = OCR data
 
-dataSetNr = 4; % Change this to load new data 
+dataSetNr = 3; % Change this to load new data 
 
 [X, D, L] = loadDataSet( dataSetNr );
 
@@ -28,36 +28,30 @@ selectAtRandom = true; % true = select features at random, false = select the fi
 Xtraining = Xt{1};
 Xtest = Xt{2};
 
-numTraining = size(Xtraining);
-numTraining = numTraining(2);
+numTraining = size(Xtraining, 2);
+numTest = size(Xtest, 2);
 
-numTest = size(Xtest);
-numTest = numTest(2);
-
-% The Training Data
 Xtraining = [ones(1,numTraining); Xtraining];
-
-
-% The Test Data
 Xtest = [ones(1,numTest); Xtest];
 
 
 %% Train your single layer network
 % Note: You nned to modify trainMultiLayer() in order to train the network
 
-numHidden = 64; % Change this, Number of hidde neurons 
-numIterations = 10000; % Change this, Numner of iterations (Epochs)
-learningRate = 0.0005; % Change this, Your learningrate
+numHidden = 40; % Change this, Number of hidde neurons 
+numIterations = 1000; % Change this, Numner of iterations (Epochs)
+learningRate = 1e-3; %0.00001; % Change this, Your learningrate
+momentum = 0.0;
 
 numFeatures = size(Xtraining,1);
 numClasses = length(unique(Lt{1}));
 
 
-V0 = rand(numClasses,numHidden+1); % Change this, Initiate your weight matrix W
-W0 = rand(numHidden,numFeatures); % Change this, Initiate your weight matrix V
+V0 = randn(numClasses,numHidden+1)*0.01; % Change this, Initiate your weight matrix W
+W0 = randn(numHidden,numFeatures)*0.01; % Change this, Initiate your weight matrix V
 
 %
-[W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate );
+[W,V, trainingError, testError ] = trainMultiLayer(Xtraining,Dt{1},Xtest,Dt{2}, W0,V0,numIterations, learningRate, momentum );
 
 % Plot errors
 figure(1101)
@@ -70,6 +64,7 @@ plot(mErrInd,mErr,'bo','linewidth',1.5)
 hold off
 title('Training and Test Errors, Single Layer')
 legend('Training Error','Test Error','Min Test Error')
+axis([0,numIterations, 0,1]);
 
 %% Calculate The Confusion Matrix and the Accuracy of the Evaluation Data
 % Note: you have to modify the calcConfusionMatrix() function yourselfs.

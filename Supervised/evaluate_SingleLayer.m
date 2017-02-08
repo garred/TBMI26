@@ -46,7 +46,7 @@ Xtest = [ones(1,numTest); Xtest];
 % Note: You nned to modify trainSingleLayer() in order to train the network
 
 numIterations = 400; % Change this, Numner of iterations (Epochs)
-learningRate = 0.00005; % Change this, Your learningrate
+learningRate = 0.005; % Change this, Your learningrate
 
 n = size(Xtraining,1);
 k = length(unique(Lt{1}));

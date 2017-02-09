@@ -6,7 +6,7 @@ nT = 100;%2000; %Train samples
 
 %% Initializing
 
-[x_train,y_train, x_test,y_test] = GiveMeWhatINeed(nF, nT);
+[image_train,x_train,y_train, image_test,x_test,y_test] = GiveMeWhatINeed(nF, nT);
 
 %% Training
 

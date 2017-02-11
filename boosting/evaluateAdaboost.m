@@ -1,8 +1,8 @@
 %% Parameters
 
 nF = 100;%50; %Number of features
-nK = 100;%10; %Number of classifiers
-nT = 100;%2000; %Train samples
+nK = 32;%10; %Number of classifiers
+nT = 400;%2000; %Train samples
 
 %% Initializing
 

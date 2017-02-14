@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.22)  11 FEB 2017 23:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.22)  14 FEB 2017 17:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -618,6 +618,10 @@ Package pdftex.def Info: images/accuracyOnTrainingFeaturesClassifiers-eps-conve
 rted-to.pdf used on input line 49.
 (pdftex.def)             Requested size: 160.4209pt x 113.81102pt.
 
+Overfull \hbox (6.94476pt too wide) detected at line 67
+[]
+ []
+
 [3 <./images/accuracyOnTrainingFeaturesClassifiers-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images/accuracyOnTestDONumClassifiers.eps>
 
@@ -640,6 +644,11 @@ type pdf)
 Package pdftex.def Info: images/accuracyOnTestDONumClassifiers-eps-converted-to
 .pdf used on input line 76.
 (pdftex.def)             Requested size: 227.6278pt x 170.71652pt.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 87.
+
 Package epstopdf Info: Source file: <images/hard_faces.eps>
 (epstopdf)                    date: 2017-02-11 22:51:40
 (epstopdf)                    size: 120627 bytes
@@ -648,15 +657,14 @@ Package epstopdf Info: Source file: <images/hard_faces.eps>
 (epstopdf)                    size: 27481 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/hard_faces-eps-conv
 erted-to.pdf images/hard_faces.eps>
-(epstopdf)             \includegraphics on input line 95.
+(epstopdf)             \includegraphics on input line 106.
 Package epstopdf Info: Output file is already uptodate.
-
 <images/hard_faces-eps-converted-to.pdf, id=86, 454.69875pt x 397.485pt>
 File: images/hard_faces-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/hard_faces-eps-converted-to.pdf>
 Package pdftex.def Info: images/hard_faces-eps-converted-to.pdf used on input l
-ine 95.
+ine 106.
 (pdftex.def)             Requested size: 195.29462pt x 170.71652pt.
 
 
@@ -671,14 +679,14 @@ Package epstopdf Info: Source file: <images/hard_nonfaces.eps>
 (epstopdf)                    size: 27999 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/hard_nonfaces-eps-c
 onverted-to.pdf images/hard_nonfaces.eps>
-(epstopdf)             \includegraphics on input line 102.
+(epstopdf)             \includegraphics on input line 113.
 Package epstopdf Info: Output file is already uptodate.
 <images/hard_nonfaces-eps-converted-to.pdf, id=87, 366.36874pt x 310.15875pt>
 File: images/hard_nonfaces-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/hard_nonfaces-eps-converted-to.pdf>
 Package pdftex.def Info: images/hard_nonfaces-eps-converted-to.pdf used on inpu
-t line 102.
+t line 113.
 (pdftex.def)             Requested size: 201.65436pt x 170.71652pt.
 
 
@@ -692,14 +700,14 @@ Package epstopdf Info: Source file: <images/easy_faces.eps>
 (epstopdf)                    size: 28240 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/easy_faces-eps-conv
 erted-to.pdf images/easy_faces.eps>
-(epstopdf)             \includegraphics on input line 109.
+(epstopdf)             \includegraphics on input line 120.
 Package epstopdf Info: Output file is already uptodate.
 <images/easy_faces-eps-converted-to.pdf, id=88, 454.69875pt x 397.485pt>
 File: images/easy_faces-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/easy_faces-eps-converted-to.pdf>
 Package pdftex.def Info: images/easy_faces-eps-converted-to.pdf used on input l
-ine 109.
+ine 120.
 (pdftex.def)             Requested size: 195.29462pt x 170.71652pt.
 
 
@@ -714,7 +722,7 @@ Package epstopdf Info: Source file: <images/mean_all.eps>
 (epstopdf)                    size: 5520 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/mean_all-eps-conver
 ted-to.pdf images/mean_all.eps>
-(epstopdf)             \includegraphics on input line 118.
+(epstopdf)             \includegraphics on input line 129.
 Package epstopdf Info: Output file is already uptodate.
 
 <images/mean_all-eps-converted-to.pdf, id=97, 241.90375pt x 211.79124pt>
@@ -722,7 +730,7 @@ File: images/mean_all-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/mean_all-eps-converted-to.pdf>
 Package pdftex.def Info: images/mean_all-eps-converted-to.pdf used on input lin
-e 118.
+e 129.
 (pdftex.def)             Requested size: 97.49431pt x 85.35826pt.
 
 
@@ -736,14 +744,14 @@ Package epstopdf Info: Source file: <images/mean_easy.eps>
 (epstopdf)                    size: 5547 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/mean_easy-eps-conve
 rted-to.pdf images/mean_easy.eps>
-(epstopdf)             \includegraphics on input line 125.
+(epstopdf)             \includegraphics on input line 136.
 Package epstopdf Info: Output file is already uptodate.
 <images/mean_easy-eps-converted-to.pdf, id=98, 247.92625pt x 212.795pt>
 File: images/mean_easy-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/mean_easy-eps-converted-to.pdf>
 Package pdftex.def Info: images/mean_easy-eps-converted-to.pdf used on input li
-ne 125.
+ne 136.
 (pdftex.def)             Requested size: 99.45247pt x 85.35826pt.
 
 
@@ -757,14 +765,14 @@ Package epstopdf Info: Source file: <images/mean_hard.eps>
 (epstopdf)                    size: 5578 bytes
 (epstopdf)             Command: <repstopdf --outfile=images/mean_hard-eps-conve
 rted-to.pdf images/mean_hard.eps>
-(epstopdf)             \includegraphics on input line 132.
+(epstopdf)             \includegraphics on input line 143.
 Package epstopdf Info: Output file is already uptodate.
 <images/mean_hard-eps-converted-to.pdf, id=99, 241.90375pt x 211.79124pt>
 File: images/mean_hard-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images/mean_hard-eps-converted-to.pdf>
 Package pdftex.def Info: images/mean_hard-eps-converted-to.pdf used on input li
-ne 132.
+ne 143.
 (pdftex.def)             Requested size: 97.49431pt x 85.35826pt.
 
 
@@ -775,13 +783,13 @@ onverted-to.pdf> <./images/easy_faces-eps-converted-to.pdf> <./images/mean_all-
 eps-converted-to.pdf>] [7 <./images/mean_easy-eps-converted-to.pdf> <./images/m
 ean_hard-eps-converted-to.pdf>] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 4007 strings out of 493029
- 54704 string characters out of 6136233
- 123273 words of memory out of 5000000
- 7476 multiletter control sequences out of 15000+600000
+ 4009 strings out of 493029
+ 54720 string characters out of 6136233
+ 124281 words of memory out of 5000000
+ 7478 multiletter control sequences out of 15000+600000
  8715 words of font info for 32 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,7n,32p,598b,267s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,8n,32p,598b,267s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
@@ -789,7 +797,7 @@ blic/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 17.pfb>
-Output written on main.pdf (7 pages, 234666 bytes).
+Output written on main.pdf (7 pages, 235640 bytes).
 PDF statistics:
  218 PDF objects out of 1000 (max. 8388607)
  81 compressed objects within 1 object stream

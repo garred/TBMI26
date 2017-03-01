@@ -88,3 +88,5 @@ while (~state.isterminal && running<100)
     running = running + 1;
 end
 draw_all(Q, visited);
+imagesc(max(Q, [], 3));
+surface(max(Q, [], 3));

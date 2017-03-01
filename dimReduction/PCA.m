@@ -7,7 +7,10 @@ X = countrydata;
 matrixCov = myMatrixCov(X);
 matrixCorr = myMatrixCorr(X);
 
+figure
 imagesc(matrixCov)
+figure
+imagesc(matrixCorr)
 
 %% normalize all the features by themselves
 X = myZnorm(X);
@@ -63,20 +66,24 @@ plot3(e(i,:)*X_2, e(i-1,:)*X_2, e(i-2,:)*X_2, 'o')
 %%
 
 W = FLD(X_0, X_2);
-
+axis0 = zeros(1,length(W'*X_0));
+axis1 = zeros(1,length(W'*X_1));
+axis2 = zeros(1,length(W'*X_2));
 figure
 hold on
-plot(W'*X_0, W'*X_0, 'o')
-%plot(W'*X_1, W'*X_1, 'o')
-plot(W'*X_2, W'*X_2, 'o')
+plot(W'*X_0, axis0, 'o')
+%plot(W'*X_1, axis2, 'o')
+plot(W'*X_2, axis2, 'o')
 %legend('developing','in between','developed')
 
 %%
 
 w0 = W'*X_0;
+%w1 = W'*X_1;
 w2 = W'*X_2;
 
 figure
 hold on
 histogram(w0, length(w0))
+%histogram(w1, length(w1))
 histogram(w2, length(w2))

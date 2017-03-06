@@ -1,6 +1,6 @@
 function draw_all( Q, visited )
-%DRAW_ALL Summary of this function goes here
-%   Detailed explanation goes here
+%DRAW_ALL plot the scene with the arrows of optimal action in the visited
+%places.
     gwdraw();
     for i=1:10
         for j=1:15

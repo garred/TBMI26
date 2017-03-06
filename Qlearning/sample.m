@@ -5,8 +5,9 @@ function out = sample(values,probs)
 %
 % will give out=1 with probability 0.2, out=2 with prob. 0.1 etc... 
 %
-%
-  
+% Modified to allow any real values, not just in the interval [0-1].
+
+probs = exp(probs);
 p = cumsum(probs(:));
 p = p / p(end);
 out = find(p > rand);

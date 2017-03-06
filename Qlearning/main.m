@@ -1,92 +1,54 @@
-% Parameters
+%% Parameters
 
-initial_world = 1;
-alpha = 0.5;
-gamma = 0.99;
-MAX_EPISODES = 100;
-numExperiments = 1;
+clear all
 
-
-% Main loop
-
-episode = 0
-
-experiments = [];
-for m=1:numExperiments
-    m
-    Q = initialize();
-    episode = 0;
-    runs = [];
-    while episode < MAX_EPISODES
-        episode = episode + 1;
-        %if (mod(episode,100)==0) 
-            episode
-        %end
-
-        gwinit(initial_world);
-        visited = zeros(10,15);
-
-        state = gwstate();
-        running = 0;
-        while (~state.isterminal && running<1000)
-            % Get the current state and possible actions 
-            pos = state.pos;
-            visited(pos(1),pos(2)) = 1;
-            action_probabilities = reshape(Q(pos(1), pos(2), :), [4,1]);
-
-            % Perform the action
-            action = sample([1 2 3 4], action_probabilities);
-            gwaction(action);
-            new_state = gwstate();
-            r = new_state.feedback;
-            new_pos = new_state.pos;
-
-            % Q-Learning
-            Q(pos(1),pos(2), action) = ...
-                (1-alpha) * Q(pos(1),pos(2), action) + ...
-                alpha * (r + gamma * max(Q(new_pos(1), new_pos(2), :)));
+initial_world = 4;
+alpha = 0.1;
+gamma = 1.0;
+num_episodes = 10000;
+num_runs = 1;
 
 
-            % Update current state
-            state = new_state;        
+%% Main loop
 
-            running = running + 1;
-        end
-        runs = [runs running];
+Q = initialize();
+episode = 0;
+for episode = 1:num_episodes
+    if mod(episode,100)==0
+        episode
     end
-    experiments = [experiments; runs];
+
+    epsilon = (num_episodes - episode) / num_episodes;
+    [Q, steps] = run_one_episode(initial_world, Q, alpha, gamma, epsilon);
 end
-
-figure;
-plot(mean(experiments));
-
-
-% draw_all(Q, visited);
-% figure;
-% plot(runs);
+%plot(mean(experiments));
 
 
 %% Greedy algorithm
 
-gwinit(initial_world);
-state = gwstate();
-%visited = zeros(10,15);
+runs = [];
+visited = zeros(10,15);
 visited = ones(10,15);
-running = 0
-while (~state.isterminal && running<100)
-    % Get the current state and possible actions 
-    pos = state.pos;
-    visited(pos(1),pos(2)) = 1;
-    action_probabilities = reshape(Q(pos(1), pos(2), :), [4,1]);
 
-    % Perform the action
-    [value, action] = max(action_probabilities);
-    %action = sample([1 2 3 4], action_probabilities);
-    gwaction(action);
+for run = 1:num_runs
+    gwinit(initial_world);
     state = gwstate();
     
-    running = running + 1;
+    steps = 0;
+    while (~state.isterminal && steps<1000)
+        visited(state.pos(1), state.pos(2)) = 1;
+
+        [action, r, new_state] = act(state, Q, 0.0);
+        state = new_state;
+
+        steps = steps + 1;
+    end
+    
+    runs = [runs; steps];
 end
 draw_all(Q, visited);
+mean(runs)
+
+%% 
 imagesc(max(Q, [], 3));
-surface(max(Q, [], 3));
+%surface(max(Q, [], 3));

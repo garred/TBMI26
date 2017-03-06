@@ -1,7 +1,6 @@
-function [ action opt_action] = choose_action( Q,state_x,state_y,...
-    actions,eps,prob_a,prob )
+function [ action opt_action ] = choose_action( Q,state_x,state_y, actions,eps,prob_a,prob )
+%Check the optimal action
 
- %Check the optimal action
     Q_values=Q(state_x,state_y,:);
     [Q_opt index_opt]=max(Q_values);
         
@@ -12,7 +11,5 @@ function [ action opt_action] = choose_action( Q,state_x,state_y,...
             
     action_index=sample(pos_actions,prob);
     action=pos_actions(action_index); 
-
-
 end
 
